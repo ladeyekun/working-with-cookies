@@ -1,3 +1,5 @@
+'use strict';
+
 import {select, listen} from "./util.js";
 
 const cookiesDialog = select('.cookies');
@@ -18,15 +20,13 @@ listen('load', window, () => {
 });
 
 listen('click', settingsBtn, () =>{
+    toggleOn();
     showSettingsDialog();
 });
 
 listen('click', acceptAllBtn, () => {
     closeDialogs();
-    browser.checked = true;
-    os.checked = true;
-    width.checked = true;
-    height.checked = true;
+    toggleOn();
     setCookies();
 });
 
@@ -35,9 +35,18 @@ listen('click', saveBtn, () => {
     setCookies();
 });
 
+function toggleOn() {
+    browser.checked = true;
+    os.checked = true;
+    width.checked = true;
+    height.checked = true;
+}
+
 function showCookiesDialog() {
-    cookiesDialog.style.display = 'grid';
-    settingsDialog.style.display = 'none';
+    setTimeout(() => {
+        cookiesDialog.style.display = 'grid';
+        settingsDialog.style.display = 'none';
+    }, 1000);
 }
 
 function showSettingsDialog() {
@@ -60,7 +69,6 @@ function isCookiesStored() {
 }
 
 function setCookie(name, value) {
-    console.log(`name=${name}, value=${value}`);
     let str= '';
     str += `${encodeURIComponent(name)}=${encodeURIComponent(value)}; `;
     str = str + `path=/; max-age=${MAX_AGE};`;
@@ -82,12 +90,10 @@ function getCookie(name) {
 
 function setCookies() {
 
-    let browserName = !browser.checked ? 'rejected' : getBrowserName();
+    let browserName = browser.checked ? getBrowserName() : 'rejected';
     let osName = os.checked ? getOS() : 'rejected';
     let widthSize = width.checked ? getWidth() : 'rejected';
     let heightSize = height.checked ? getHeight() : 'rejected';
-
-    //console.log(`browsername=${browserName}, os=${osName}, widthSize=${widthSize}, heightSize=${heightSize}`);
 
     setCookie('browser', browserName);
     setCookie('os', osName);
@@ -97,6 +103,7 @@ function setCookies() {
 
 function getBrowserName() {
     const userAgent = navigator.userAgent.toLowerCase();
+    
     let browser = '';
     if (userAgent.includes('opera') || userAgent.includes('opr')) {
         browser = 'Opera';
