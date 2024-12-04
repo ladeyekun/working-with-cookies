@@ -9,9 +9,10 @@ const os = select('.os');
 const width = select('.width');
 const height = select('.height');
 const saveBtn = select('.save');
+const MAX_AGE = 15;
 
 listen('load', window, () => {
-    if (!document.cookie.length > 0){
+    if (!isCookiesStored()){
         showCookiesDialog();
     }
 });
@@ -20,8 +21,18 @@ listen('click', settingsBtn, () =>{
     showSettingsDialog();
 });
 
+listen('click', acceptAllBtn, () => {
+    closeDialogs();
+    browser.checked = true;
+    os.checked = true;
+    width.checked = true;
+    height.checked = true;
+    setCookies();
+});
+
 listen('click', saveBtn, () => {
-    console.log(getSettings());
+    closeDialogs();
+    setCookies();
 });
 
 function showCookiesDialog() {
@@ -34,13 +45,54 @@ function showSettingsDialog() {
     settingsDialog.style.display = 'grid';
 }
 
-function getSettings() {
-    return {
-        "browser": browser.checked,
-        "os": os.checked,
-        "width": width.checked,
-        "height": height.checked    
+function closeDialogs() {
+    cookiesDialog.style.display = 'none';
+    settingsDialog.style.display = 'none';
+}
+
+function isCookiesStored() {
+    if (navigator.cookieEnabled) {
+        if (document.cookie.split('; ').length > 1) {
+            return true;
+        }
     }
+    return false;
+}
+
+function setCookie(name, value) {
+    console.log(`name=${name}, value=${value}`);
+    let str= '';
+    str += `${encodeURIComponent(name)}=${encodeURIComponent(value)}; `;
+    str = str + `path=/; max-age=${MAX_AGE};`;
+    str = str + `secure; SameSite=Lax`;
+    document.cookie = str;
+}
+
+function getCookie(name) {
+    if (document.cookie.split('; ') > 1) {
+        decodedCookies = decodeURIComponent(document.cookie);
+        const cookies = decodedCookies.split('; ');
+        for (const cookie of cookies){
+            const np = cookie.split('=');
+            if (name === np[0]) return np[1];
+        }
+    }
+    return '';
+}
+
+function setCookies() {
+
+    let browserName = !browser.checked ? 'rejected' : getBrowserName();
+    let osName = os.checked ? getOS() : 'rejected';
+    let widthSize = width.checked ? getWidth() : 'rejected';
+    let heightSize = height.checked ? getHeight() : 'rejected';
+
+    //console.log(`browsername=${browserName}, os=${osName}, widthSize=${widthSize}, heightSize=${heightSize}`);
+
+    setCookie('browser', browserName);
+    setCookie('os', osName);
+    setCookie('width', widthSize);
+    setCookie('height', heightSize);
 }
 
 function getBrowserName() {
@@ -84,11 +136,5 @@ function getHeight() {
     return window.innerHeight;
 }
 
-function setCookie(name, value, expire) {
-
-}
-
-function getCookie() {
-
-}
+console.log(document.cookie);
 

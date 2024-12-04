@@ -103,7 +103,7 @@ section {
 /*----------------------------------*/
 
 .dialog-overlay {
-    display: grid; 
+    display: none; 
     position: fixed;
     inset: 0 auto auto 0;
     width: 100%;
