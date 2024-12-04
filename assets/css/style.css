@@ -21,7 +21,7 @@ a {
 }
 
 body {
-    font-family: "Nunito Sans", "Noto Sans", Arial, sans-serif;
+    font-family: "Noto Sans", "Nunito Sans", Arial, sans-serif;
     background-color: var(--app-background-color);
     color: var(--app-font-color);
 }
@@ -76,7 +76,7 @@ body {
 }
 
 .on {
-    display: inline;
+    display: grid;
 }
 
 main {
@@ -91,4 +91,72 @@ section {
 
 .content {
     width: 400px;
+}
+
+.blur {
+    filter: blur(1px);
+}
+
+
+/*----------------------------------*/
+/*        Dialog                    */
+/*----------------------------------*/
+
+.dialog-overlay {
+    display: grid; 
+    position: fixed;
+    inset: 0 auto auto 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0 0 0 / 20%);
+    justify-content: center;
+    align-items: center;
+}
+
+.dialog-box {
+    background: #f4f5f7;
+    color: #333;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    height: 300px;
+    box-shadow: 0 4px 8px rgba(0 0 0 / 10%);
+
+    h2 {
+        font-size: 20px;
+        font-weight: 500;
+    }
+
+    p {
+        font-size: 16px;
+        font-weight: 400;
+    }
+
+    button {
+        height: 40px;
+        border-radius: 25px;
+        padding: 5px 15px;
+        font-size: 16px;
+        font-weight: 400px;
+        cursor: pointer;
+        background-color: #f4f5f7;
+        border: 1px solid #3c57ff;
+        color: #3c57ff;
+    }
+
+    button.primary {
+        background-color: #3c57ff;
+        border: 1px solid #3c57ff;
+        color: #fff;
+    }
+}
+
+.details {
+    font-size: 18px;
+    font-weight: 400;
+    p {
+        i {
+            padding-right: 10px;
+        }
+    }
 }
