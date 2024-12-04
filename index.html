@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mrspecht/cdn/reset.css" media="all">
         <link rel="stylesheet" href="./assets/css/style.css" media="all">
-        <script src="./assets/js/app.js" defer></script>
+        <script src="./assets/js/app.js" type="module"></script>
     </head>
     <body>
         <main>
@@ -39,8 +39,8 @@
                             purposes.
                         </p>
                         <div class="flex gap-10">
-                            <button class="primary">Accept all</button>
-                            <button>Settings</button>
+                            <button class="primary accept">Accept all</button>
+                            <button class="setting-btn">Settings</button>
                         </div>
                     </div>
                 </div>
@@ -53,34 +53,34 @@
                             <div class="flex flex-between">
                                 <p>Browser</p>
                                 <label class="switch">
-                                    <input type="checkbox" checked>
+                                    <input class="browser" type="checkbox" checked>
                                     <span class="slider round"></span>
                                 </label>
                             </div>
                             <div class="flex flex-between">
                                 <p>Operating system</p>
                                 <label class="switch">
-                                    <input type="checkbox" checked>
+                                    <input class="os" type="checkbox" checked>
                                     <span class="slider round"></span>
                                 </label>
                             </div>
                             <div class="flex flex-between">
                                 <p>Screen width</p>
                                 <label class="switch">
-                                    <input type="checkbox" checked>
+                                    <input class="width" type="checkbox" checked>
                                     <span class="slider round"></span>
                                 </label>
                             </div>
                             <div class="flex flex-between">
                                 <p>Screen height</p>
                                 <label class="switch">
-                                    <input type="checkbox" checked>
+                                    <input class="height" type="checkbox" checked>
                                     <span class="slider round"></span>
                                 </label>
                             </div>
                         </div>
                         <div class="flex gap-10">
-                            <button class="primary">Save preferences</button>
+                            <button class="primary save">Save preferences</button>
                         </div>
                     </div>
                 </div>
