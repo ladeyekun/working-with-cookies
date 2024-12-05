@@ -77,8 +77,8 @@ function setCookie(name, value) {
 }
 
 function getCookie(name) {
-    if (document.cookie.split('; ') > 1) {
-        decodedCookies = decodeURIComponent(document.cookie);
+    if (isCookiesStored()) {
+        let decodedCookies = decodeURIComponent(document.cookie);
         const cookies = decodedCookies.split('; ');
         for (const cookie of cookies){
             const np = cookie.split('=');
@@ -99,6 +99,7 @@ function setCookies() {
     setCookie('os', osName);
     setCookie('width', widthSize);
     setCookie('height', heightSize);
+    console.log('Cookies saved successfully');
 }
 
 function getBrowserName() {
@@ -143,5 +144,11 @@ function getHeight() {
     return window.innerHeight;
 }
 
-console.log(document.cookie);
+if (isCookiesStored()) {
+    const { log } = console;
+    log(`Browser=${getCookie('browser')}`);
+    log(`OS=${getCookie('os')}`);
+    log(`Width=${getCookie('width')}`);
+    log(`Height=${getCookie('height')}`);
+}
 
